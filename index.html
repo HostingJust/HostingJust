@@ -12,6 +12,7 @@
         <input type="submit" value="Get Info">
     </form>
     <div id="product-info"></div>
+    <div id="update-message"></div> <!-- Div para exibir mensagem de atualização -->
 
     <script>
         $(document).ready(function() {
@@ -28,6 +29,9 @@
                     success: function(response) {
                         // Display product information on success
                         $('#product-info').html(response);
+
+                        // Display update message
+                        $('#update-message').text('Product information updated!');
                     },
                     error: function(xhr, status, error) {
                         // Handle error
