@@ -2,13 +2,40 @@
 <html>
 <head>
     <title>Product Information</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
     <h1>Product Information</h1>
-    <form action="get_product_info.php" method="get">
-        <label for="product_id">Product ID:</label>
-        <input type="text" id="product_id" name="product_id">
-        <input type="submit" value="Pegar informação">
+    <form id="product-form">
+        <label for="nome">Nome:</label>
+        <input type="text" id="nome" name="nome">
+        <input type="submit" value="Get Info">
     </form>
+    <div id="product-info"></div>
+
+    <script>
+        $(document).ready(function() {
+            $('#product-form').submit(function(e) {
+                e.preventDefault(); // Prevent form submission
+
+                var formData = $(this).serialize(); // Serialize form data
+
+                // Send AJAX request to get_product_info.php
+                $.ajax({
+                    url: 'get_product_info.php',
+                    type: 'GET',
+                    data: formData,
+                    success: function(response) {
+                        // Display product information on success
+                        $('#product-info').html(response);
+                    },
+                    error: function(xhr, status, error) {
+                        // Handle error
+                        console.error('Error:', error);
+                    }
+                });
+            });
+        });
+    </script>
 </body>
 </html>
